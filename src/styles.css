@@ -1,0 +1,358 @@
+/* =========================
+   COLOR SYSTEM
+========================= */
+
+:root {
+  --bg: #f6f7fb;
+  --panel: #ffffff;
+  --text: #121826;
+  --muted: #667085;
+  --border: #e5e7eb;
+  --shadow: 0 8px 24px rgba(16, 24, 40, 0.06);
+
+  --primary: #111827;
+  --primaryText: #ffffff;
+
+  --danger: #b42318;
+  --dangerBg: #fee4e2;
+
+  --radius: 14px;
+}
+
+/* manual dark toggle */
+body.theme-dark {
+  --bg: #0b1220;
+  --panel: #0f172a;
+  --text: #e5e7eb;
+  --muted: #94a3b8;
+  --border: rgba(148, 163, 184, 0.18);
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+
+  --primary: #e5e7eb;
+  --primaryText: #0b1220;
+
+  --dangerBg: rgba(185, 28, 28, 0.15);
+  --danger: #fecaca;
+}
+
+/* =========================
+   BASE
+========================= */
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* =========================
+   LAYOUT
+========================= */
+
+.app {
+  max-width: 960px;
+  margin: 40px auto;
+  padding: 0 18px 60px;
+}
+
+.hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.heroTitle {
+  margin: 0;
+  font-size: 40px;
+  letter-spacing: -0.03em;
+}
+
+.heroSub {
+  margin-top: 6px;
+  color: var(--muted);
+}
+
+/* =========================
+   PANELS
+========================= */
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 16px;
+  margin-top: 14px;
+}
+
+.panelTitle {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+/* =========================
+   FORM & INPUTS
+========================= */
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr 1fr 1fr 180px;
+}
+
+@media (max-width: 900px) {
+  .grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 520px) {
+  .grid { grid-template-columns: 1fr; }
+}
+
+.filters {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr 220px;
+}
+
+@media (max-width: 700px) {
+  .filters { grid-template-columns: 1fr; }
+}
+
+.input,
+.select {
+  height: 40px;
+  padding: 0 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: var(--text);
+  outline: none;
+}
+
+.input::placeholder {
+  color: #98a2b3;
+}
+
+.input:focus,
+.select:focus {
+  border-color: #c7c9d1;
+  box-shadow: 0 0 0 4px rgba(17, 24, 39, 0.08);
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.btn,
+.btnPrimary,
+.btnDanger {
+  height: 36px;
+  padding: 0 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: var(--text);
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn:hover { background: rgba(148, 163, 184, 0.08); }
+
+.btnPrimary {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--primaryText);
+}
+
+.btnDanger {
+  border-color: #fca5a5;
+  background: var(--dangerBg);
+  color: var(--danger);
+}
+
+/* =========================
+   LIST & CARDS
+========================= */
+
+.list { display: grid; gap: 12px; }
+
+.card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 14px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
+}
+
+body.theme-dark .card:hover {
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.45);
+}
+
+.cardTitle {
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.muted {
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.cardMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.metaItem {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* actions */
+.cardActions {
+  margin-top: 12px;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+.cardActions .select {
+  width: 160px;
+}
+
+/* edit grid */
+.editGrid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+@media (max-width: 700px) {
+  .editGrid { grid-template-columns: 1fr; }
+}
+
+/* =========================
+   BADGES
+========================= */
+
+.badge {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  color: var(--text); /* ✅ important: base text color */
+}
+
+.badge-applied {
+  background: #eef2ff;
+  border-color: #c7d2fe;
+}
+
+.badge-interview {
+  background: #ecfeff;
+  border-color: #a5f3fc;
+}
+
+.badge-offer {
+  background: #ecfdf3;
+  border-color: #a7f3d0;
+}
+
+.badge-rejected {
+  background: #fff1f2;
+  border-color: #fecdd3;
+}
+
+/* =========================
+   EMPTY STATE
+========================= */
+
+.empty {
+  border: 1px dashed var(--border);
+  background: var(--panel);
+  padding: 18px;
+  border-radius: var(--radius);
+}
+
+.emptyTitle {
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+
+.emptyText {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* =========================
+   DARK MODE READABILITY FIX
+========================= */
+
+body.theme-dark .cardTitle {
+  color: #f8fafc;
+}
+
+body.theme-dark .muted,
+body.theme-dark .metaItem {
+  color: #cbd5e1;
+}
+
+body.theme-dark .card {
+  background: #0f172a;
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+/* ✅ make badge text readable in dark mode (base + specific) */
+body.theme-dark .badge {
+  color: #e5e7eb;
+  border-color: rgba(255, 255, 255, 0.10);
+}
+
+body.theme-dark .badge-applied {
+  background: rgba(59, 130, 246, 0.18);
+  color: #bfdbfe;
+}
+
+body.theme-dark .badge-interview {
+  background: rgba(245, 158, 11, 0.18);
+  color: #fde68a;
+}
+
+body.theme-dark .badge-offer {
+  background: rgba(34, 197, 94, 0.18);
+  color: #bbf7d0;
+}
+
+body.theme-dark .badge-rejected {
+  background: rgba(239, 68, 68, 0.18);
+  color: #fecaca;
+}
