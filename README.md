@@ -26,6 +26,6 @@ npm install
 npm run dev
 
 ## 📸 Preview
-![preview](https://github.com/user-attachments/assets/1d32e147-ff0b-4b83-b69a-874ebcf47c36)
+![preview](./preview.png)
 
 
