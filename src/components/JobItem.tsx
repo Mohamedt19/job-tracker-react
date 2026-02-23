@@ -11,18 +11,30 @@ type Props = {
   ) => void;
 };
 
+// Small helper: format stored ISO date into something readable for UI
 function formatDate(iso: string) {
   const d = new Date(iso);
+
+  // guard in case date is missing/corrupted in localStorage
   if (Number.isNaN(d.getTime())) return "";
-  return d.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
+
+  return d.toLocaleDateString(undefined, {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
 }
 
 export default function JobItem({ job, onStatusChange, onDelete, onEdit }: Props) {
+  // UI state: toggles edit mode per card
   const [editing, setEditing] = useState(false);
+
+  // local editable fields (start with current job values)
   const [company, setCompany] = useState(job.company);
   const [title, setTitle] = useState(job.title);
   const [location, setLocation] = useState(job.location);
 
+  // convert internal status value into user-friendly label
   const statusLabel =
     job.status === "applied"
       ? "Applied"
@@ -32,20 +44,29 @@ export default function JobItem({ job, onStatusChange, onDelete, onEdit }: Props
       ? "Offer"
       : "Rejected";
 
-  const appliedLabel = useMemo(() => formatDate(job.appliedDate), [job.appliedDate]);
+  // memoize formatted date so we don’t reformat on every render
+  const appliedLabel = useMemo(
+    () => formatDate(job.appliedDate),
+    [job.appliedDate]
+  );
 
   function save() {
+    // trim inputs and fall back to old values if required fields are empty
     onEdit(job.id, {
       company: company.trim() || job.company,
       title: title.trim() || job.title,
+      // location is optional, so empty string is fine
       location: location.trim(),
     });
+
+    // exit edit mode after saving
     setEditing(false);
   }
 
   return (
     <div className="card">
       <div className="cardTop">
+        {/* view mode */}
         {!editing ? (
           <div className="cardMain">
             <div className="cardTitle">
@@ -54,18 +75,22 @@ export default function JobItem({ job, onStatusChange, onDelete, onEdit }: Props
             </div>
 
             <div className="cardMeta">
+              {/* if location is missing, show a friendly default */}
               <span className="metaItem">
                 {job.location?.trim() || "Remote / Not specified"}
               </span>
 
+              {/* only show applied date if we have a valid formatted value */}
               {appliedLabel ? (
                 <span className="metaItem">Applied: {appliedLabel}</span>
               ) : null}
 
+              {/* status badge uses status for color via CSS class */}
               <span className={`badge badge-${job.status}`}>{statusLabel}</span>
             </div>
           </div>
         ) : (
+          /* edit mode */
           <div className="editGrid">
             <input
               className="input"
@@ -90,6 +115,7 @@ export default function JobItem({ job, onStatusChange, onDelete, onEdit }: Props
       </div>
 
       <div className="cardActions">
+        {/* status dropdown is disabled while editing to avoid confusing updates */}
         <select
           className="select"
           value={job.status}
@@ -102,6 +128,7 @@ export default function JobItem({ job, onStatusChange, onDelete, onEdit }: Props
           <option value="rejected">Rejected</option>
         </select>
 
+        {/* edit controls */}
         {!editing ? (
           <button className="btn" onClick={() => setEditing(true)}>
             Edit
@@ -117,6 +144,7 @@ export default function JobItem({ job, onStatusChange, onDelete, onEdit }: Props
           </>
         )}
 
+        {/* destructive action */}
         <button className="btnDanger" onClick={() => onDelete(job.id)}>
           Delete
         </button>

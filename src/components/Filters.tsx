@@ -1,5 +1,11 @@
 import type { JobStatus } from "../types";
 
+/*
+  Props passed from parent (App)
+  - query: current search text
+  - status: selected filter status
+  - handlers update state in parent
+*/
 type Props = {
   query: string;
   onQueryChange: (v: string) => void;
@@ -14,34 +20,42 @@ export default function Filters({
   onStatusChange,
 }: Props) {
   return (
+    // panel container for search & filtering controls
     <section className="panel">
       <div className="panelHeader">
         <h2 className="panelTitle">Search & Filter</h2>
       </div>
 
+      {/* two-column layout: search input + status dropdown */}
       <div className="gridTwo">
+        
+        {/* search field */}
         <div className="field">
           <label className="label" htmlFor="search">
             Search
           </label>
+
           <input
             id="search"
             className="input"
             value={query}
-            onChange={(e) => onQueryChange(e.target.value)}
+            onChange={(e) => onQueryChange(e.target.value)} // update parent state
             placeholder="Search company, title, or location..."
             autoComplete="off"
           />
         </div>
 
+        {/* status filter */}
         <div className="field">
           <label className="label" htmlFor="statusFilter">
             Status
           </label>
+
           <select
             id="statusFilter"
             className="select"
             value={status}
+            // cast needed because HTML select returns string
             onChange={(e) => onStatusChange(e.target.value as any)}
           >
             <option value="all">All</option>
@@ -51,6 +65,7 @@ export default function Filters({
             <option value="rejected">Rejected</option>
           </select>
         </div>
+
       </div>
     </section>
   );

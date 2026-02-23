@@ -1,30 +1,48 @@
+/* =========================================================
+   Job Tracker Styles
+   Simple + clean CSS (junior-to-mid style)
+   - uses CSS variables for theme
+   - small modern polish (cards, inputs, spacing)
+========================================================= */
+
 /* =========================
    COLOR SYSTEM
 ========================= */
 
 :root {
+  /* page + surfaces */
   --bg: #f6f7fb;
   --panel: #ffffff;
+
+  /* text */
   --text: #121826;
   --muted: #667085;
+
+  /* borders + depth */
   --border: #e5e7eb;
   --shadow: 0 8px 24px rgba(16, 24, 40, 0.06);
 
+  /* main CTA */
   --primary: #111827;
   --primaryText: #ffffff;
 
+  /* danger */
   --danger: #b42318;
   --dangerBg: #fee4e2;
 
+  /* rounding */
   --radius: 14px;
 }
 
-/* manual dark toggle */
+/* manual dark toggle
+   we just swap variables, so we don’t rewrite a million styles */
 body.theme-dark {
   --bg: #0b1220;
   --panel: #0f172a;
+
   --text: #e5e7eb;
   --muted: #94a3b8;
+
   --border: rgba(148, 163, 184, 0.18);
   --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
 
@@ -39,11 +57,19 @@ body.theme-dark {
    BASE
 ========================= */
 
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
+
+/* tiny nice touch: smoother theme switch */
+* {
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
 
 body {
   margin: 0;
-  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica,
+    Arial;
   background: var(--bg);
   color: var(--text);
 }
@@ -58,12 +84,16 @@ body {
   padding: 0 18px 60px;
 }
 
+/* header area */
 .hero {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+
+  /* ✅ better alignment than flex-start */
+  align-items: center;
+
   gap: 16px;
-  margin-bottom: 18px;
+  margin-bottom: 22px;
 }
 
 .heroTitle {
@@ -85,8 +115,13 @@ body {
   background: var(--panel);
   border: 1px solid var(--border);
   border-radius: var(--radius);
+
+  /* still using your variable shadow, but slightly softer on cards later */
   box-shadow: var(--shadow);
-  padding: 16px;
+
+  /* ✅ tiny bit more breathing room */
+  padding: 18px;
+
   margin-top: 14px;
 }
 
@@ -96,6 +131,9 @@ body {
   letter-spacing: 0.1em;
   color: var(--muted);
   margin-bottom: 10px;
+
+  /* looks a bit more “designed” */
+  font-weight: 700;
 }
 
 /* ✅ header row used in JobList.tsx */
@@ -107,7 +145,7 @@ body {
   flex-wrap: wrap;
 }
 
-/* ✅ pills spacing fix (this is what stops: 0 shown0 Applied0...) */
+/* ✅ pills spacing fix (prevents: 0 shown0 Applied0...) */
 .pillRow {
   display: flex;
   align-items: center;
@@ -115,28 +153,32 @@ body {
   gap: 10px;
 }
 
+/* pills look like simple dashboard chips */
 .pill {
   display: inline-flex;
   align-items: center;
   white-space: nowrap;
-  padding: 6px 10px;
+  padding: 6px 12px;
   border-radius: 999px;
   border: 1px solid var(--border);
-  background: var(--panel);
-  color: var(--muted);
-  font-size: 13px;
-  font-weight: 700;
+
+  /* slightly softer than pure panel */
+  background: #f9fafb;
+
+  color: #475467;
+  font-size: 12px;
+  font-weight: 600;
 }
 
 .pill.success {
   border-color: rgba(34, 197, 94, 0.35);
-  background: rgba(34, 197, 94, 0.10);
+  background: rgba(34, 197, 94, 0.1);
   color: rgb(22, 163, 74);
 }
 
 .pill.danger {
   border-color: rgba(239, 68, 68, 0.35);
-  background: rgba(239, 68, 68, 0.10);
+  background: rgba(239, 68, 68, 0.1);
   color: rgb(220, 38, 38);
 }
 
@@ -155,6 +197,8 @@ body {
   color: var(--muted);
 }
 
+/* main grid (form)
+   3 inputs + button by default */
 .grid {
   display: grid;
   gap: 12px;
@@ -162,13 +206,18 @@ body {
 }
 
 @media (max-width: 900px) {
-  .grid { grid-template-columns: 1fr 1fr; }
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 @media (max-width: 520px) {
-  .grid { grid-template-columns: 1fr; }
+  .grid {
+    grid-template-columns: 1fr;
+  }
 }
 
+/* filters layout */
 .filters {
   display: grid;
   gap: 12px;
@@ -176,7 +225,9 @@ body {
 }
 
 @media (max-width: 700px) {
-  .filters { grid-template-columns: 1fr; }
+  .filters {
+    grid-template-columns: 1fr;
+  }
 }
 
 .input,
@@ -190,14 +241,16 @@ body {
   outline: none;
 }
 
+/* placeholder can be a bit lighter */
 .input::placeholder {
   color: #98a2b3;
 }
 
+/* ✅ softer focus ring */
 .input:focus,
 .select:focus {
-  border-color: #c7c9d1;
-  box-shadow: 0 0 0 4px rgba(17, 24, 39, 0.08);
+  border-color: #9ca3af;
+  box-shadow: 0 0 0 3px rgba(17, 24, 39, 0.06);
 }
 
 /* =========================
@@ -217,7 +270,9 @@ body {
   font-weight: 600;
 }
 
-.btn:hover { background: rgba(148, 163, 184, 0.08); }
+.btn:hover {
+  background: rgba(148, 163, 184, 0.08);
+}
 
 .btnPrimary {
   background: var(--primary);
@@ -235,20 +290,28 @@ body {
    LIST & CARDS
 ========================= */
 
-.list { display: grid; gap: 12px; }
+/* list wrapper if you use it anywhere */
+.list {
+  display: grid;
+  gap: 12px;
+}
 
+/* card = each job item */
 .card {
   background: var(--panel);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  padding: 14px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  /* ✅ softer + modern depth */
+  box-shadow: 0 6px 18px rgba(16, 24, 40, 0.05);
+
+  padding: 16px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(16, 24, 40, 0.08);
 }
 
 body.theme-dark .card:hover {
@@ -277,7 +340,7 @@ body.theme-dark .card:hover {
   font-size: 13px;
 }
 
-/* actions */
+/* actions row in each card */
 .cardActions {
   margin-top: 12px;
   display: flex;
@@ -290,7 +353,7 @@ body.theme-dark .card:hover {
   width: 160px;
 }
 
-/* edit grid */
+/* edit mode input grid */
 .editGrid {
   display: grid;
   gap: 10px;
@@ -298,22 +361,28 @@ body.theme-dark .card:hover {
 }
 
 @media (max-width: 700px) {
-  .editGrid { grid-template-columns: 1fr; }
+  .editGrid {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* =========================
    BADGES
 ========================= */
 
+/* base badge (status chip) */
 .badge {
   font-size: 12px;
   font-weight: 600;
   padding: 6px 10px;
   border-radius: 999px;
   border: 1px solid var(--border);
-  color: var(--text); /* ✅ important: base text color */
+
+  /* ✅ readable by default */
+  color: var(--text);
 }
 
+/* status colors */
 .badge-applied {
   background: #eef2ff;
   border-color: #c7d2fe;
@@ -338,11 +407,13 @@ body.theme-dark .card:hover {
    EMPTY STATE
 ========================= */
 
+/* if you use .empty (simple empty state) */
 .empty {
   border: 1px dashed var(--border);
-  background: var(--panel);
-  padding: 18px;
+  background: #fafafa;
+  padding: 22px;
   border-radius: var(--radius);
+  text-align: center;
 }
 
 .emptyTitle {
@@ -354,6 +425,10 @@ body.theme-dark .card:hover {
   color: var(--muted);
   font-size: 13px;
 }
+
+/* NOTE:
+   Your JobList uses: .emptyState, .emptyFade, .emptyIcon, etc.
+   If you want those styled too, paste the class names and I’ll add them. */
 
 /* =========================
    DARK MODE READABILITY FIX
@@ -373,10 +448,10 @@ body.theme-dark .card {
   border-color: rgba(255, 255, 255, 0.06);
 }
 
-/* ✅ make badge text readable in dark mode (base + specific) */
+/* make badge text readable in dark mode */
 body.theme-dark .badge {
   color: #e5e7eb;
-  border-color: rgba(255, 255, 255, 0.10);
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
 body.theme-dark .badge-applied {

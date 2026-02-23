@@ -1,31 +1,29 @@
 # Job Tracker
 
-Track your job applications, filter them, and manage progress.
+A simple job application tracker built with **React + TypeScript**.  
+Add applications, update status, search fast, and keep everything saved in the browser.
+
 ## 🌐 Live Demo
-
-Try it here:
 https://job-tracker-react-two.vercel.app/
-## ✨ Features
 
-- Add & manage job applications
-- Status tracking (Applied, Interview, Offer, Rejected)
-- Search & filter
-- Dark mode
-- Responsive design
+## ✨ Features
+- Add / edit / delete job applications
+- Status tracking: **Applied • Interview • Offer • Rejected**
+- Search + filter (company, title, location)
+- Dark mode toggle
+- Responsive UI
+- LocalStorage persistence (data stays after refresh)
 
 ## 🛠 Tech Stack
-
 - React
 - TypeScript
 - Vite
 - CSS
 
-## 🚀 Run locally
+## 📸 Preview
+![Job Tracker Preview](./preview.png)
 
+## 🚀 Run Locally
+```bash
 npm install
 npm run dev
-
-## 📸 Preview
-![preview](./preview.png)
-
-

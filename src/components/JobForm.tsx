@@ -1,6 +1,10 @@
 import { useState } from "react";
 import type { JobStatus } from "../types";
 
+/*
+  Form submits a new job to the parent hook.
+  Parent handles persistence (localStorage).
+*/
 type Props = {
   onAdd: (job: {
     company: string;
@@ -13,6 +17,7 @@ type Props = {
 };
 
 export default function JobForm({ onAdd }: Props) {
+  // local form state
   const [company, setCompany] = useState("");
   const [title, setTitle] = useState("");
   const [location, setLocation] = useState("");
@@ -20,16 +25,21 @@ export default function JobForm({ onAdd }: Props) {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+
+    // basic validation — prevent empty entries
     if (!company.trim() || !title.trim()) return;
 
+    // send new job up to parent state
     onAdd({
       company: company.trim(),
       title: title.trim(),
       location: location.trim(),
       status,
+      // store ISO date so it can be formatted later
       appliedDate: new Date().toISOString(),
     });
 
+    // reset form after submit
     setCompany("");
     setTitle("");
     setLocation("");
@@ -39,6 +49,8 @@ export default function JobForm({ onAdd }: Props) {
   return (
     <form className="form" onSubmit={handleSubmit}>
       <div className="grid">
+        
+        {/* company */}
         <label className="field">
           <span className="label">Company *</span>
           <input
@@ -49,6 +61,7 @@ export default function JobForm({ onAdd }: Props) {
           />
         </label>
 
+        {/* job title */}
         <label className="field">
           <span className="label">Job Title *</span>
           <input
@@ -59,6 +72,7 @@ export default function JobForm({ onAdd }: Props) {
           />
         </label>
 
+        {/* location is optional */}
         <label className="field">
           <span className="label">Location</span>
           <input
@@ -69,11 +83,13 @@ export default function JobForm({ onAdd }: Props) {
           />
         </label>
 
+        {/* status selection */}
         <label className="field">
           <span className="label">Status</span>
           <select
             className="select"
             value={status}
+            // select returns string, cast to JobStatus
             onChange={(e) => setStatus(e.target.value as JobStatus)}
           >
             <option value="applied">Applied</option>
@@ -88,6 +104,7 @@ export default function JobForm({ onAdd }: Props) {
         <button className="btnPrimary" type="submit">
           Add job
         </button>
+
         <p className="hint">* Required fields</p>
       </div>
     </form>
